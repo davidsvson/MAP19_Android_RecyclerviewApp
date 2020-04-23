@@ -29,6 +29,7 @@ class StudentsRecyclerAdapter(private val context: Context, private val students
         holder.textName.text = student.name
         holder.textClassName.text = student.className
         holder.studentPosition = position
+        holder.doneButton.isChecked = student.done
 
     }
 
