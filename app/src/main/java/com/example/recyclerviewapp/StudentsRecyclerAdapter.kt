@@ -7,6 +7,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,7 @@ class StudentsRecyclerAdapter(private val context: Context, private val students
         val textName = itemView.findViewById<TextView>(R.id.text_name)
         val textClassName = itemView.findViewById<TextView>(R.id.text_class_name)
         val deleteButton = itemView.findViewById<ImageButton>(R.id.delete_button)
+        val doneButton = itemView.findViewById<CheckBox>(R.id.done_box)
         var studentPosition = 0
 
         init {
@@ -48,6 +50,12 @@ class StudentsRecyclerAdapter(private val context: Context, private val students
                intent.putExtra(STUDENT_POSITION_KEY, studentPosition)
                context.startActivity(intent)
             }
+
+            doneButton.setOnClickListener { view ->
+                DataManager.students[studentPosition].done = doneButton.isChecked
+               // Snackbar.make(view, "done? ${DataManager.students[studentPosition].done}", Snackbar.LENGTH_SHORT).show()
+            }
+
             deleteButton.setOnClickListener {view ->
                 val dialogBuilder = AlertDialog.Builder(context)
 
@@ -66,9 +74,6 @@ class StudentsRecyclerAdapter(private val context: Context, private val students
                 val alert = dialogBuilder.create()
 
                 alert.show()
-
-
-
             }
         }
     }
